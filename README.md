@@ -12,7 +12,7 @@ source anchor_venv/bin/activate
 
 To install anchor, run
 ```
-git clone --recursive https://github.com/mleszczy/anchor.git
+git clone --recursive https://github.com/HazyResearch/anchor-stability.git
 cd anchor
 pip install -r requirements.txt
 bash run_install.sh
