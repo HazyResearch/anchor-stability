@@ -1,0 +1,21 @@
+[submodule "embedding_algorithms/word2vec"]
+	path = embedding_algorithms/word2vec
+	url = https://github.com/mleszczy/word2vec.git
+[submodule "embedding_algorithms/Hazy"]
+	path = embedding_algorithms/Hazy
+	url = https://github.com/HazyResearch/Hazy.git
+	branch = new_init
+[submodule "embedding_algorithms/GloVe"]
+	path = embedding_algorithms/GloVe
+	url = https://github.com/mleszczy/GloVe.git
+[submodule "third_party/sentence_classification"]
+	path = third_party/sentence_classification
+	url = https://github.com/avnermay/sentence_classification.git
+	branch = master
+[submodule "third_party/flair"]
+	path = third_party/flair
+	url = https://github.com/mleszczy/flair.git
+	branch = experiments
+[submodule "third_party/smallfry"]
+	path = third_party/smallfry
+	url = https://github.com/mleszczy/smallfry.git

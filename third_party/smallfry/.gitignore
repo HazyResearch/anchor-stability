@@ -1,0 +1,22 @@
+# First, ignore everything
+*
+# Now, whitelist anything that's a directory
+!*/
+!*.tex
+!*.sty
+!*.bib
+!*.bst
+!paper/figures/*.pdf
+!paper/figures/*.csv
+# And all the file types you're interested in.
+!*.py
+!*.txt
+!.gitignore
+!.gitmodule
+!.travis.yml
+!*.md
+!src/*.sh
+!src/third_party/hyperwords/*
+# Ignore "egg-info"
+*.egg-info/
+build/

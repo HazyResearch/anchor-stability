@@ -1,0 +1,12 @@
+*.gz
+*ipynb_checkpoints
+*._*
+*__pycache__*
+deprecated/*
+*.log
+*.pkl
+*.DS_Store
+*.vscode
+build/*
+dist/*
+data/*
