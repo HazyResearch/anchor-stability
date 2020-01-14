@@ -11,7 +11,7 @@
 [submodule "third_party/sentence_classification"]
 	path = third_party/sentence_classification
 	url = https://github.com/avnermay/sentence_classification.git
-	branch = master
+	branch = megan_sandbox
 [submodule "third_party/flair"]
 	path = third_party/flair
 	url = https://github.com/mleszczy/flair.git
