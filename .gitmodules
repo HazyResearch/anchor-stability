@@ -5,3 +5,7 @@
 [submodule "third_party/smallfry"]
 	path = third_party/smallfry
 	url = https://github.com/mleszczy/smallfry.git
+[submodule "third_party/sentence_classification"]
+	path = third_party/sentence_classification
+	url = https://github.com/mleszczy/sentence_classification.git
+	branch = megan_sandbox
