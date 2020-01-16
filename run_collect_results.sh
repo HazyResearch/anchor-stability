@@ -2,12 +2,17 @@ ANALYSISDIR=runs/analysis
 EMBDIR=runs/embs
 MODELDIR=runs/models
 
+DATASET=sst
+# see Appendix for values selected from grid search for each algorithm
+MC_LR=0.001
+CBOW_LR=0.0001
+
 mkdir -p ${ANALYSISDIR}
 mkdir -p ${ANALYSISDIR}/distances
 
 ## Model instability
-bash scripts/analysis/eval_wiki_compressed.sh sst mc 0.001 ${ANALYSISDIR}/distances ${MODELDIR}
-bash scripts/analysis/eval_wiki_compressed.sh sst w2v_cbow 0.0001 ${ANALYSISDIR}/distances ${MODELDIR}
+bash scripts/analysis/eval_wiki_compressed.sh ${DATASET} mc ${MC_LR} ${ANALYSISDIR}/distances ${MODELDIR}
+bash scripts/analysis/eval_wiki_compressed.sh ${DATASET} w2v_cbow ${CBOW_LR} ${ANALYSISDIR}/distances ${MODELDIR}
 
 ## Embedding instability
 
@@ -36,7 +41,7 @@ bash scripts/analysis/eval_wiki_compressed_embs_baselines.sh w2v_cbow eigen_over
 # Gather all results into a single CSV per embedding algorithm
 python scripts/analysis/gather_results.py --algo mc --datadir ${ANALYSISDIR}/distances --resultdir ${ANALYSISDIR} \
     --emb_metrics anchor_eigen_overlap_3.0_top_10000 knn_top_10000_nquery_1000_nn_5 sem_disp_top_10000 pip eigen_overlap_top_10000 \
-    --ds_metrics la_sst_no_emb_norm
+    --ds_metrics la_${DATASET}_no_emb_norm
 python scripts/analysis/gather_results.py --algo w2v_cbow --datadir ${ANALYSISDIR}/distances --resultdir ${ANALYSISDIR} \
     --emb_metrics anchor_eigen_overlap_3.0_top_10000 knn_top_10000_nquery_1000_nn_5 sem_disp_top_10000 pip eigen_overlap_top_10000 \
-    --ds_metrics la_sst_no_emb_norm
+    --ds_metrics la_${DATASET}_no_emb_norm

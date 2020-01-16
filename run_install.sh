@@ -1,5 +1,9 @@
 pip install -e .
 
 cd third_party/smallfry
-python setup.py develop
-cd ..
+pip install -e .
+cd ../..
+
+cd third_party/flair
+pip install -e .
+cd ../..
