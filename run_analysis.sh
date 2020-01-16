@@ -57,14 +57,15 @@ else
     echo 'Computing trends for linear-log model'
     python scripts/analysis/fit_trend.py --csv-files ${ANALYSISDIR}/mc_optimal_no_emb_norm_top_10000.csv \
                                 ${ANALYSISDIR}/w2v_cbow_optimal_no_emb_norm_top_10000.csv \
+                                --tasks la_${DATASET}_no_emb_norm
 
     python scripts/analysis/fit_trend.py --csv-files ${ANALYSISDIR}/mc_optimal_no_emb_norm_top_10000.csv \
                                 ${ANALYSISDIR}/w2v_cbow_optimal_no_emb_norm_top_10000.csv \
-                                --prec
+                                --prec --tasks la_${DATASET}_no_emb_norm
 
     python scripts/analysis/fit_trend.py --csv-files ${ANALYSISDIR}/mc_optimal_no_emb_norm_top_10000.csv \
                                 ${ANALYSISDIR}/w2v_cbow_optimal_no_emb_norm_top_10000.csv \
-                                --dim
+                                --dim --tasks la_${DATASET}_no_emb_norm
 
     echo 'Computing spearman correlation results'
     python scripts/analysis/get_correlation.py --emb_metrics anchor_eigen_overlap_3.0_top_10000 knn_top_10000_nquery_1000_nn_5 sem_disp_top_10000 pip_top_10000 eigen_overlap_top_10000 \
