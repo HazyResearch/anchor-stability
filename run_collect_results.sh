@@ -40,8 +40,8 @@ bash scripts/analysis/eval_wiki_compressed_embs_baselines.sh w2v_cbow eigen_over
 
 # Gather all results into a single CSV per embedding algorithm
 python scripts/analysis/gather_results.py --algo mc --datadir ${ANALYSISDIR}/distances --resultdir ${ANALYSISDIR} \
-    --emb_metrics anchor_eigen_overlap_3.0_top_10000 knn_top_10000_nquery_1000_nn_5 sem_disp_top_10000 pip eigen_overlap_top_10000 \
+    --emb_metrics anchor_eigen_overlap_3.0_top_10000 knn_top_10000_nquery_1000_nn_5 sem_disp_top_10000 pip_top_10000 eigen_overlap_top_10000 \
     --ds_metrics la_${DATASET}_no_emb_norm
 python scripts/analysis/gather_results.py --algo w2v_cbow --datadir ${ANALYSISDIR}/distances --resultdir ${ANALYSISDIR} \
-    --emb_metrics anchor_eigen_overlap_3.0_top_10000 knn_top_10000_nquery_1000_nn_5 sem_disp_top_10000 pip eigen_overlap_top_10000 \
+    --emb_metrics anchor_eigen_overlap_3.0_top_10000 knn_top_10000_nquery_1000_nn_5 sem_disp_top_10000 pip_top_10000 eigen_overlap_top_10000 \
     --ds_metrics la_${DATASET}_no_emb_norm
