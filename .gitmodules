@@ -8,3 +8,4 @@
 [submodule "third_party/sentence_classification"]
 	path = third_party/sentence_classification
 	url = https://github.com/mleszczy/sentence_classification.git
+	branch = megan_sandbox
