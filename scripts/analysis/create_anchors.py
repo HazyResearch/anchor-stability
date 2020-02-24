@@ -27,11 +27,11 @@ def main():
 		emb1 = Embedding(path1)
 		emb2 = Embedding(path2)
 		print(f'Loaded {path1} and {path2}')
-		emb1_anchor, emb2_anchor, shared_vocab = emb2.get_subembeds_same_vocab(emb1, n=args.n, return_vocab=True)
+		emb2_anchor, emb1_anchor, shared_vocab = emb2.get_subembeds_same_vocab(emb1, n=args.n, return_vocab=True)
 
 		filename = f'{args.embdir}/wiki_2017/{args.algo}_anchor_seed_{seed}_top_{args.n}.pkl'
 		with open(filename, 'wb') as f:
-			pickle.dump((emb1_anchor, emb2_anchor, shared_vocab), f)
+			pickle.dump((emb2_anchor, emb1_anchor, shared_vocab), f)
 
 		print(f'Saved to {filename}')
 

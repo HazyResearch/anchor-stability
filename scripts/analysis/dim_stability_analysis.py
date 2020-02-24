@@ -16,8 +16,8 @@ from utils import run_task, check_sent_complete, check_ner_complete
 def parse_args():
     parser = argparse.ArgumentParser(description="")
     parser.add_argument("--dist", type=str, required=True,
-        choices=['eigen_overlap', 'sem_disp', 'pred', 'weighted_eigen_overlap',
-        'quality', 'fro_norm', 'pip', 'spec_norm', 'knn', 'anchor_eigen_overlap'],
+        choices=['eis', 'knn', 'eigen_overlap', 'sem_disp', 'weighted_eigen_overlap',
+        'fro_norm', 'pip', 'pred', 'quality'],
         help='Distance metric between embeddings or models')
     parser.add_argument("--resultdir1", type=str, help='Directory for first embedding or model')
     parser.add_argument("--resultdir2", type=str,help='Directory for second embedding or model')
@@ -166,7 +166,6 @@ def run_seed(algo, seed, dim, lr, bitrate=None, compress_type=None, args=None):
 
     # get downstream model quality of second model
     elif args.dist == 'quality':
-        # TODO(mleszczy): clean up this hideous code...
         assert args.model is not None and args.task is not None and args.lr is not None, "Must provide model, task, and lr for quality eval"
         if args.task != 'ner':
             try:
@@ -177,7 +176,6 @@ def run_seed(algo, seed, dim, lr, bitrate=None, compress_type=None, args=None):
                 ff = open(f'{modelpath1}.log', 'r')
             dat = [_.strip() for _ in ff]
             quality1 = 1-float(dat[-2].strip().split(': ')[1])*100
-            # TODO(mleszczy): should we average errors? currently only use error on latest embedding
             try:
                 modelpath2 = f"{path2}/{args.task}/model_{args.model}_dropout_0.5_seed_{seed2}_lr_{args.lr}"
                 ff = open(f'{modelpath2}.log', 'r')
@@ -249,19 +247,17 @@ def run_seed(algo, seed, dim, lr, bitrate=None, compress_type=None, args=None):
             dist = emb2.eigen_overlap(other=emb1, n=args.truncate)
         elif args.dist == 'weighted_eigen_overlap':
             dist = emb2.eigen_overlap(other=emb1, weighted=True, exp=args.exp, normalize=not args.no_norm, symmetric=args.symmetric, n=args.truncate)
-        elif args.dist == 'anchor_eigen_overlap':
+        elif args.dist == 'eis':
             assert args.truncate > 0, 'Need to use top n for anchor metric'
             print(f'Loading {anchor_path}.')
-            emb1_anchor, emb2_anchor, vocab_anchor = pickle.load(open(anchor_path, 'rb'))
-            dist = emb2.anchor_eigen_overlap(emb1, emb1_anchor=emb1_anchor, emb2_anchor=emb2_anchor, vocab=vocab_anchor, exp=args.exp, n=args.truncate)
+            curr_anchor, other_anchor, vocab_anchor = pickle.load(open(anchor_path, 'rb'))
+            dist = emb2.eis(emb1, curr_anchor=curr_anchor, other_anchor=other_anchor, vocab=vocab_anchor, exp=args.exp, n=args.truncate)
         elif args.dist == 'fro_norm':
             dist = emb2.fro_norm(other=emb1, n=args.truncate)
         elif args.dist == 'pip':
             dist = emb2.pip_loss(other=emb1, n=args.truncate, random=args.random)
         elif 'knn' in args.dist:
             dist = emb2.knn(other=emb1, n=args.truncate, nquery=args.nquery, nneighbors=args.nneighbors)
-        elif args.dist == 'spec_norm':
-            dist = emb2.spectral_norm(other=emb1, n=args.truncate)
     return dist
 
 def main():

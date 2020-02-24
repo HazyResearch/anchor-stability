@@ -1,6 +1,6 @@
 # Understanding the Downstream Instability of Word Embeddings
 
-We include steps to reproduce the main results of the paper "Understanding the Downstream Instability of Word Embeddings" in MLSys 2020.
+Code for "Understanding the Downstream Instability of Word Embeddings" in MLSys 2020.
 
 ## Install
 
@@ -26,8 +26,59 @@ cd anchor-stability
 pip install -r requirements.txt
 bash run_install.sh
 ```
+## Basic Usage: Embedding Distance Measures
+
+To compute the instability between a pair of word embeddings (without training downstream models):
+1. Obtain sample word embeddings. These embeddings were trained on two versions of the text8 dataset: (1) the first 95M of the dataset, (2) the full 96M of the dataset.
+```
+wget  https://storage.googleapis.com/embstability/demo_embs.tar.gz
+tar -xzvf demo_embs.tar.gz
+```
+2. Create Embedding objects for the word embeddings you want to compare. We lazily load the embeddings with the first embedding distance measure. For example, using sample word embeddings:
+```
+from anchor.embedding import Embedding
+
+emb1 = Embedding('demo/text8_95M_glove_dim_25.txt')
+emb2 = Embedding('demo/text8_96M_glove_dim_25.txt')
+```
+To use the eigenspace instability measure, we must also load "anchor" embeddings. We recommend using the largest precision, highest dimensional embeddings you have available:
+```
+emb1_anchor = Embedding('demo/text8_95M_glove_dim_400.txt')
+emb2_anchor = Embedding('demo/text8_96M_glove_dim_400.txt')
+```
+
+1. Compare the embeddings using several metrics. We use `n=10000` to only compare the top-10K words for each measure. Increasing this will result in slower computation times, especially for the PIP loss and the k-NN measures.
+
+- Eigenspace instability (smaller is more stable)
+```
+emb2.eis(emb1, curr_anchor=emb2_anchor, other_anchor=emb1_anchor, n=10000)
+```
+- k-Nearest neighbors (larger is more stable)
+```
+emb2.knn(emb1, n=10000)
+```
+You can also set `nquery` to change the number of words that are sampled to compare their overlapping neighbors (default 1000) and `nneighbors` the number of neighbors compared for each query (default 5).
+
+- Semantic displacement (smaller is more stable)
+```
+emb2.sem_disp(emb1, n=10000)
+```
+- PIP loss (smaller is more stable)
+```
+emb2.pip_loss(emb1, n=10000)
+```
+- Eigenspace overlap (larger is more stable)
+```
+emb2.eigen_overlap(emb1, n=10000)
+```
+
+If you repeat the above steps with another pair of word embeddings, you can compare the instability values for a relative notion of instability. Check out the demo notebook for more details!
+
+In our experiments, we found that our theoretically grounded eigenspace instability measure and the k-NN measure had the strongest correlations with downstream prediction disagreement. In other words, the embeddings that are more unstable with respect to these metrics, are likely to have greater prediction disagreement when downstream models are trained on top of them.
 
 ## Experiments
+
+We include steps to reproduce the main results of the paper.
 
 ### 1. Prepare the embeddings
 
