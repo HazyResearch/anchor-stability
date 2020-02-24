@@ -29,7 +29,7 @@ bash run_install.sh
 ## Basic Usage: Embedding Distance Measures
 
 To compute the instability between a pair of word embeddings (without training downstream models):
-1. Obtain sample word embeddings. These embeddings were trained on two versions of the text8 dataset: (1) the first 95M of the dataset, (2) the full 96M of the dataset.
+1. Obtain sample word embeddings. These embeddings were trained on the Wikipedia'2017 and Wikipedia'2018 dumps.
 ```
 wget  https://storage.googleapis.com/embstability/demo_embs.tar.gz
 tar -xzvf demo_embs.tar.gz
@@ -38,16 +38,16 @@ tar -xzvf demo_embs.tar.gz
 ```
 from anchor.embedding import Embedding
 
-emb1 = Embedding('demo/text8_95M_glove_dim_25.txt')
-emb2 = Embedding('demo/text8_96M_glove_dim_25.txt')
+emb1 = Embedding('demo/glove_wiki_2017_dim_25.txt')
+emb2 = Embedding('demo/glove_wiki_2018_dim_25.txt')
 ```
 To use the eigenspace instability measure, we must also load "anchor" embeddings. We recommend using the largest precision, highest dimensional embeddings you have available:
 ```
-emb1_anchor = Embedding('demo/text8_95M_glove_dim_400.txt')
-emb2_anchor = Embedding('demo/text8_96M_glove_dim_400.txt')
+emb1_anchor = Embedding('demo/glove_wiki_2017_dim_100.txt')
+emb2_anchor = Embedding('demo/glove_wiki_2018_dim_100.txt')
 ```
 
-1. Compare the embeddings using several metrics. We use `n=10000` to only compare the top-10K words for each measure. Increasing this will result in slower computation times, especially for the PIP loss and the k-NN measures.
+1. Compare the embeddings using several metrics. We use `n=10000` to only compare the top-10K words for each measure. Increasing this will result in slower computation times, especially for the PIP loss and the k-NN measures. If you swap the order of the embeddings, the distance may change slightly as the top n words is based on the first embedding (emb2 in the examples below).
 
 - Eigenspace instability (smaller is more stable)
 ```
@@ -72,7 +72,7 @@ emb2.pip_loss(emb1, n=10000)
 emb2.eigen_overlap(emb1, n=10000)
 ```
 
-If you repeat the above steps with another pair of word embeddings, you can compare the instability values for a relative notion of instability. Check out the demo notebook for more details!
+If you repeat the above steps with another pair of word embeddings, you can compare the instability values for a relative notion of instability. Check out the [demo notebook](notebooks/demo_distance_measures.ipynb) for more details!
 
 In our experiments, we found that our theoretically grounded eigenspace instability measure and the k-NN measure had the strongest correlations with downstream prediction disagreement. In other words, the embeddings that are more unstable with respect to these metrics, are likely to have greater prediction disagreement when downstream models are trained on top of them.
 

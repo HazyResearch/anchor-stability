@@ -205,13 +205,12 @@ class Embedding:
             norm = self._weighted_eigen_overlap(emb1, emb2, exp=exp, normalize=normalize)
         return norm
 
-    def eis(self, other, curr_anchor, other_anchor, vocab=None, exp=1, n=-1):
+    def eis(self, other, curr_anchor, other_anchor, vocab=None, exp=3, n=-1):
         if vocab is None:
             # get vocab from anchor embs
             curr_anchor, other_anchor, vocab = curr_anchor.get_subembeds_same_vocab(other_anchor, n=n, return_vocab=True)
         curr_emb = self.get_subembed(vocab)
         other_emb = other.get_subembed(vocab)
-        print(curr_emb.shape, other_emb.shape, curr_anchor.shape, other_anchor.shape)
         V1, R1, _ = np.linalg.svd(curr_anchor, full_matrices=False)
         V2, R2, _ = np.linalg.svd(other_anchor, full_matrices=False)
         U1, _, _ = np.linalg.svd(curr_emb, full_matrices=False)
