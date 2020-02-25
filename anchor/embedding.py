@@ -234,7 +234,7 @@ class Embedding:
         return (t1 + t2 - 2*t3 + t4 + t5 - 2*t6) / normalizer
 
 
-    def sem_disp(self, other, average=True, align=True, return_shared_vocab=False, n=-1):
+    def sem_disp(self, other, average=True, align=True, n=-1):
         if not isinstance(other, Embedding):
             raise ValueError("Only Embedding objects supported.")
         emb1, emb2 = self.get_subembeds_same_vocab(other, n=n)
@@ -246,8 +246,6 @@ class Embedding:
         )
         if average:
             rcos_dist = np.nanmean(rcos_dist, axis=0)
-        if return_shared_vocab:
-            return rcos_dist, shared_vocab
         return rcos_dist
 
     def fro_norm(self, other, n=-1):
