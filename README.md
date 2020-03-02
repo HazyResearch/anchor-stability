@@ -63,8 +63,10 @@ emb2.eis(emb1, curr_anchor=emb2_anchor, other_anchor=emb1_anchor, n=10000)
 ```
 emb2.knn(emb1, n=10000)
 ```
-You can also set `nquery` to change the number of words that are sampled to compare their overlapping neighbors (default 1000) and `nneighbors` the number of neighbors compared for each query (default 5).
-
+You can also set `nquery` to change the number of words that are sampled to compare their overlapping neighbors (default 1000) and `nneighbors` the number of neighbors compared for each query (default 5). For example, to compare the 10 nearest neighbors for 100 query words: 
+```
+emb2.knn(emb1, n=10000, nneighbors=10, nquery=100)
+```
 - Semantic displacement (smaller is more stable)
 ```
 emb2.sem_disp(emb1, n=10000)
