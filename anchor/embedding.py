@@ -282,6 +282,8 @@ class Embedding:
     def eis(self, other, curr_anchor, other_anchor, vocab=None, exp=3, n=-1):
         """
         Computes the eigenspace instability measure between the current instance and another Embedding.
+        See details in Appendix B.1 of the MLSys 2020 paper "Understanding the Downstream Instability
+        of Word Embeddings" for the derivation of this implementation.
 
         :param other: other Embedding object to compare
         :param curr_anchor: 'anchor' embedding corresponding to current instance to compute distance
