@@ -1,3 +1,8 @@
+"""
+Main analysis file to compute the embedding distance measures and downstream measures between pairs
+of embeddings and save the results to panda dataframes.
+"""
+
 import argparse
 import glob
 import os
@@ -9,9 +14,6 @@ import pandas as pd
 
 from anchor.embedding import Embedding
 from utils import run_task, check_sent_complete, check_ner_complete
-
-# Main file to compute the embedding metrics and downstream metrics between pairs
-# of embeddings and save the results to panda dataframes
 
 def parse_args():
     parser = argparse.ArgumentParser(description="")
@@ -214,7 +216,7 @@ def run_seed(algo, seed, dim, lr, bitrate=None, compress_type=None, args=None):
                     assert check_sent_complete(modelpath1, modelpath2)
                 else:
                     # load model trained on embedding
-                    # hacky soln to deal with new naming w/ data seed
+                    # hacky soln to deal with new naming for seed experiments 
                     try:
                         modelpath1 = f"{path1}/{args.task}/model_{args.model}_dropout_0.5_seed_{seed1}_lr_{args.lr}"
                         preds1 = np.array(pickle.load(open(f'{modelpath1}.pred', "rb")))

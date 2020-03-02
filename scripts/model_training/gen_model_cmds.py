@@ -1,9 +1,11 @@
+"""
+Generate commands for model training for a list of embeddings.
+"""
+
+import argparse
 import glob
 import os
-import argparse
 import sys
-
-# Generate commands for model training for a list of embeddings
 
 def parse_args():
     parser = argparse.ArgumentParser(description='')

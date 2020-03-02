@@ -1,7 +1,9 @@
+"""
+Generate commands for compressing embeddings.
+"""
+
 import argparse
 import pickle
-
-# Generate commands for compressing embeddings
 
 def parse_args():
     parser = argparse.ArgumentParser(description="")

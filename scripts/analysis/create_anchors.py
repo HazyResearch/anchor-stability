@@ -1,9 +1,11 @@
+"""
+Save the high-precision, full-dimensional embeddings needed for the eigenspace instability measure
+in advance for more efficient analysis.
+"""
 
 from anchor.embedding import Embedding
 import argparse
 import pickle
-
-# Save the high-precision, full-dimensional embeddings needed for the eigenspace instability measure
 
 def main():
 	parser = argparse.ArgumentParser()

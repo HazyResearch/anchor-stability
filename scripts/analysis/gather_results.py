@@ -1,8 +1,12 @@
+"""
+Generates the csvs of all of the embedding and downstream results.
+"""
+
 import argparse
 import pandas as pd
 import numpy as np
 
-# ugly way to keep track of all the optimal parameters
+# keep track of all the optimal parameters found from the grid search
 optimal_wiki = {
         ('mc', 'la_sst_no_emb_norm'): 0.001,
         ('mc', 'la_subj_no_emb_norm'): 0.1,

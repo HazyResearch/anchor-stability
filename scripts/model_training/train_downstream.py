@@ -1,3 +1,7 @@
+"""
+Downstream model training/prediction on top of an embedding; called from gen_model_cmds.
+"""
+
 import argparse
 import logging
 import glob
@@ -9,9 +13,6 @@ import torch
 
 from third_party.sentence_classification.train_classifier import train_sentiment
 from third_party.flair.ner import train_ner, eval_ner
-
-# Downstream model training/prediction on top of an embedding
-# Called from gen_model_cmds
 
 def parse_args():
     parser = argparse.ArgumentParser(description="")

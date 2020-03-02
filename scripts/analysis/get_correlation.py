@@ -1,10 +1,11 @@
-import pandas as pd
+"""
+Generates the Spearman correlations between the embedding and downstream measures.
+"""
+
 import argparse
 import csv
 import numpy as np
-
-# Generates the Spearman correlations between the embedding metrics
-# and downstream metrics
+import pandas as pd
 
 def parse_args():
     parser = argparse.ArgumentParser()

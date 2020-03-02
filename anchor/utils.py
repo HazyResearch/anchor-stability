@@ -1,3 +1,7 @@
+"""
+Utils file.
+"""
+
 import logging
 import time
 from datetime import timedelta
@@ -7,7 +11,7 @@ def load_vocab_list(vocab_file):
     vocab = []
     fin = open(vocab_file, "r", encoding="utf-8")
     for line in fin:
-        try: 
+        try:
             w, _ = line.rstrip().split(' ')
             vocab.append(w)
         except:

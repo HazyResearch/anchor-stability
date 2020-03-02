@@ -1,11 +1,13 @@
+"""
+Generates the selection criterion results
+-- requires data file with embedding distance and disagreement
+between pairs of embeddings as input.
+"""
+
 import argparse
 import csv
 import numpy as np
 import pandas as pd
-
-# Generates the selection criterion results
-# -- requires data file with embedding distance and disagreement
-# between pairs of embeddings as input
 
 def parse_args():
     parser = argparse.ArgumentParser()

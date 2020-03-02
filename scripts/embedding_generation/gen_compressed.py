@@ -1,3 +1,7 @@
+"""
+Run the embedding compression using smallfry's implementation.
+"""
+
 from smallfry.compress import compress_uniform
 from smallfry.utils import load_embeddings, save_embeddings
 

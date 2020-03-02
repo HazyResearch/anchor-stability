@@ -1,11 +1,13 @@
+"""
+Computes the distance to the oracle when given a selection of pairs at
+the same memory budget and must select the pair which attains the lowest
+embedding distance measure.
+"""
+
 import pandas as pd
 import argparse
 import csv
 import numpy as np
-
-# Computes the distance to the oracle when given a selection of pairs at
-# the same memory budget and must select the pair which attains the lowest
-# embedding distance measure
 
 def parse_args():
     parser = argparse.ArgumentParser()

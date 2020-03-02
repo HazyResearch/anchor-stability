@@ -1,11 +1,13 @@
+"""
+Fits linear-log models to the instability v. memory, instability v. dimension,
+and instability v. precision trends.
+"""
+
 import argparse
 import pandas as pd
 import numpy as np
 import functools
 import scipy.stats
-
-# Fits linear-log models to the instability v. memory, instability v. dimension,
-# and instability v. precision trends.
 
 def parse_args():
     parser = argparse.ArgumentParser()
