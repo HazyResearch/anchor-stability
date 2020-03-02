@@ -1,5 +1,3 @@
-pip install -e .
-
 cd third_party/smallfry
 pip install -e .
 cd ../..

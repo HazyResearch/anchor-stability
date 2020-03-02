@@ -24,8 +24,14 @@ To install anchor, run
 git clone --recursive https://github.com/HazyResearch/anchor-stability.git
 cd anchor-stability
 pip install -r requirements.txt
+pip install -e .
+```
+
+If you just want to try out the embedding distance measures, you can skip to 'Basic Usage' below. If you are interested in reproducing the experiments in 'Experiments' below, then you will also need to run:
+```
 bash run_install.sh
 ```
+
 ## Basic Usage: Embedding Distance Measures
 
 To compute the instability between a pair of word embeddings (without training downstream models):
